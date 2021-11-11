@@ -1,11 +1,12 @@
 CC=g++
 CFLAGS=-Wall -O
 LDFLAGS=
-EXEC=./bin/arbre_exec
+EXEC=./bin/tp_7
+
 
 all: $(EXEC)
 
-./bin/arbre_exec: ./object/element.o ./object/Noeud.o ./object/arbre.o ./object/main.o 
+$(EXEC): ./object/element.o ./object/Noeud.o ./object/arbre.o ./object/main.o 
 	$(CC) -o $(EXEC) ./object/element.o ./object/Noeud.o ./object/arbre.o ./object/main.o
 
 ./object/element.o: ./src/element.cpp
