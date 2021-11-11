@@ -1,5 +1,5 @@
-#ifndef NOEUD_SKIPLIST
-#define NOEUD_SKIPLIST
+#ifndef NOEUD_ABR
+#define NOEUD_ABR
 
 #include "element.h"
 #include <iostream>
