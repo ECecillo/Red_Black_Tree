@@ -1,11 +1,18 @@
 CC=g++
 CFLAGS=-Wall -O
+# Nom de l'exec
 EXEC=./bin/tp_7
+# Chemin vers les fichiers .o 
 OBJ_FOLDER = ./object/
+# Chemin vers tous les fichiers .o
 OBJ_EXEC = $(OBJ_FOLDER)element.o $(OBJ_FOLDER)Noeud.o $(OBJ_FOLDER)Noeud_ARN.o $(OBJ_FOLDER)arbre.o $(OBJ_FOLDER)arbre_ARN.o $(OBJ_FOLDER)main.o 
+#Chemin vers le fichiers sources avec les .cpp
 SRC_FOLDER = ./src/
+#Chemin vers les fichiers .h 
 MODULE_FOLDER = ./src/module/
 
+
+#Toutes les règles pour créer l'exe du programme.
 all: $(EXEC)
 
 $(EXEC): $(OBJ_EXEC) 
@@ -30,9 +37,12 @@ $(OBJ_FOLDER)main.o: $(SRC_FOLDER)main.cpp $(MODULE_FOLDER)element.h $(MODULE_FO
 	$(CC) -o $(OBJ_FOLDER)main.o -c $(SRC_FOLDER)main.cpp $(CFLAGS)
 
 
-
-
+# Règle pour le nettoyage.
 clean:
 	rm -f $(OBJ_FOLDER)*.o $(EXEC)
 mrproper: clean
 	rm -f $(EXEC) 
+
+
+
+# Edité par CECILLON Enzo.
