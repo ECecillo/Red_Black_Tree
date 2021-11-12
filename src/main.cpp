@@ -2,10 +2,15 @@
 
 #include <iostream>
 #include "module/element.h"
-#include "module/arbre.h"
-#include "module/Noeud.h"
 #include <iostream>
 #include <string.h>
+
+#include "module/Noeud.h"
+#include "module/arbre.h"
+#include "module/Noeud_ARN.h"
+#include "module/arbre_ARN.h"
+
+
 
 using namespace std;
 
@@ -42,7 +47,8 @@ void menu_programme_principale()
     else if (choix_utilisateur == "2")
     {
       // TEST Arbre_RN
-      // ...
+      Arbre_ARN abr_RN;
+      abr_RN.test_arbre_RN();
     }
     else if (choix_utilisateur == "3")
     {
