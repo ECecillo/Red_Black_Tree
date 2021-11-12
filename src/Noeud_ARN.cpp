@@ -17,3 +17,9 @@ Noeud_ARN::Noeud_ARN(const Elem& e,const char& couleur_noeud)
     couleur = couleur_noeud;
     fg = fd = NULL;
 }
+Noeud_ARN::~Noeud_ARN()
+{
+    cle = 0;
+    fg = fd = NULL;
+    couleur = '\0';
+}

@@ -15,6 +15,11 @@ public:
     Noeud_ARN* rechercheElement(const Elem& e) const;
     Noeud_ARN* recherche_element_noeud(const Elem& e, Noeud_ARN* n) const;
 
+    // Vide l'arbre en profondeur.
+    void vide();
+    void vide_arbre_noeud(Noeud_ARN* n);
+    // Procédure de test pour les arbre rouge et noir.
+    void test_arbre_RN();
     // Opérateur.
 private:
     Noeud_ARN *racine; // Racine de l'abre.
