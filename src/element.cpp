@@ -23,6 +23,6 @@ bool Elem::operator>(const Elem& e_cmp)
 }
 bool Elem::operator==(const Elem& e_cmp) const
 {
-  assert(this->e == e_cmp.e);
+  //assert(this->e == e_cmp.e);
   return (e_cmp.e == this->e);
 }

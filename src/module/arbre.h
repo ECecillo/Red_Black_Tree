@@ -15,10 +15,10 @@ class Arbre
         Arbre(const Arbre& l);
         
         // Recherche un élément dans un arbre binaire et retourne l'adresse vers ce Noeud.
-        Noeud* rechercheElement(const Elem& e) const;
+        bool rechercheElement(const Elem& e) const;
 
         // Appel récursif sur l'abre à partir de l'adresse racine de l'arbre.
-        Noeud* recherche_a_partir_Noeud(Noeud* n, const Elem& e) const;
+        bool recherche_a_partir_Noeud(Noeud* n, const Elem& e) const;
 
         // Insere l'élément e que l'on prend dans le main.
         void insere_element(const Elem& e);

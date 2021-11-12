@@ -5,7 +5,6 @@
 #include <vector>
 #include <stdlib.h>
 #include <cassert>
-#include <stack>
 
 using namespace std;
 
@@ -20,25 +19,28 @@ Arbre::~Arbre()
 }
 
 // Valeur de retour : Adresse du Noeud ou NULL dans le cas où l'élément n'est pas dans l'abre.
-Noeud *Arbre::rechercheElement(const Elem &e) const
+bool Arbre::rechercheElement(const Elem &e) const
 {
     return recherche_a_partir_Noeud(racine, e); // on fait appel recursif à partir de la première adresse de l'arbre qui est la racine?
 }
-Noeud *Arbre::recherche_a_partir_Noeud(Noeud *n, const Elem &e) const
+bool Arbre::recherche_a_partir_Noeud(Noeud *n, const Elem &e) const
 {
     // Cas arrêt.
+    if(n == NULL)
+        return false;
     if (n != NULL) // Si l'arbre est vide ou on est tombé sur un fg ou fd NULL on peut retourner faux.
     {
         if (n->cle == e) // On regarde si la clé est égale à l'élément que l'on recherche.
         {
-            return n;
+            assert(n->cle == e);
+            return true;
         }
         else if (n->cle > e) // Si notre élément est inférieure à la cle du noeud que l'on regarde on doit surement être à gauche.
-            recherche_a_partir_Noeud(n->fg, e);
-        else // On doit être à droite.
-            recherche_a_partir_Noeud(n->fd, e);
+            return recherche_a_partir_Noeud(n->fg, e);
+        else if(n->cle < e)// On doit être à droite.
+            return recherche_a_partir_Noeud(n->fd, e);
     }
-    return NULL;
+    return false;
 }
 
 void Arbre::insere_element(const Elem &e)
@@ -298,7 +300,6 @@ void Arbre::tests_arbre()
 
     // Menu pour choisir un affichage.
     menu_choix_affichage_arbre();
-
     cout << "Construction d'un nouvelle arbre en fonction du premier" << endl;
     // On copie l'abre abr dans l'arbre abr2.
     Arbre abr2;
@@ -309,6 +310,12 @@ void Arbre::tests_arbre()
 
     cout << "Abr2 bien init" << endl;
     abr2.affichage_Infixe();
+
+    if(abr2.rechercheElement(2))
+    {
+        cout << "L'élément 2 est bien dans l'abre 2 " << endl;
+    }
+    
 
     cout << "Fin procédure Test Arbre binaire de recherche." << endl;
 }
