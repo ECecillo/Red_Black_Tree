@@ -244,7 +244,7 @@ bool Arbre::est_vide() const
 Arbre::Arbre(const Arbre &l)
 {
     // Constructeur par copie profonde.
-    Noeud *n = l.racine; // On créer un pointeur local sur la racine de l'abre que l'on veut recopier.
+    Noeud *n = l.racine;               // On créer un pointeur local sur la racine de l'abre que l'on veut recopier.
     racine = recopie_arbre(racine, n); // On attribue le nouvelle arbre.
 }
 Noeud *Arbre::recopie_arbre(Noeud *n, Noeud *&noeud_parcours_abr)
@@ -264,10 +264,51 @@ Noeud *Arbre::recopie_arbre(Noeud *n, Noeud *&noeud_parcours_abr)
     return nouveau_noeud;
 }
 
-
-Arbre& Arbre::operator=(const Arbre& l)
+Arbre &Arbre::operator=(const Arbre &l)
 {
-    Noeud * parcours_l = l.racine;
-    racine = recopie_arbre(racine, parcours_l); 
+    Noeud *parcours_l = l.racine;
+    racine = recopie_arbre(racine, parcours_l);
+    hauteur = l.hauteur;
     return *this;
+}
+
+void Arbre::tests_arbre()
+{
+    cout << "Constructeur ok" << endl;
+
+    insere_element(4);
+    Elem valeur_racine_abr_local = racine->cle;
+    assert(valeur_racine_abr_local == 4);
+    insere_element(10);
+    insere_element(14);
+    insere_element(2);
+    insere_element(1);
+    insere_element(7);
+    insere_element(9);
+    insere_element(12);
+    insere_element(22);
+    insere_element(22);
+    insere_element(100);
+    insere_element(45);
+    insere_element(32);
+    insere_element(29);
+    insere_element(3);
+    assert(hauteur == 15);
+    cout << "Ajout ok" << endl;
+
+    // Menu pour choisir un affichage.
+    menu_choix_affichage_arbre();
+
+    cout << "Construction d'un nouvelle arbre en fonction du premier" << endl;
+    // On copie l'abre abr dans l'arbre abr2.
+    Arbre abr2;
+    abr2 = *this;
+    
+    Elem valeur_racine_abr2 = abr2.racine->cle;
+    assert(abr2.hauteur == hauteur && valeur_racine_abr2 == valeur_racine_abr_local);
+
+    cout << "Abr2 bien init" << endl;
+    abr2.affichage_Infixe();
+
+    cout << "Fin procédure Test Arbre binaire de recherche." << endl;
 }
