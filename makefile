@@ -50,7 +50,7 @@ $(EXEC_FOLDER):
 clean:
 	rm -f $(OBJ_FOLDER)*.o $(EXEC)
 mrproper: clean
-	rm -f $(EXEC) 
+	rm -rf $(EXEC_FOLDER) $(OBJ_FOLDER) 
 
 
 
