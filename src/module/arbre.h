@@ -63,6 +63,9 @@ class Arbre
         Noeud* recopie_arbre(Noeud* n,Noeud*& noeud_parcours_abr);
 
         Arbre& operator= (const Arbre& l);
+
+        // Procédure permettant de faire des tests sur les fonctions et procédures sur les arbres.
+        void tests_arbre();
     protected:
         Noeud* racine; // Premier élément de l'arbre.
         int hauteur;
