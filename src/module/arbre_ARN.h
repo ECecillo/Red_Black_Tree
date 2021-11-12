@@ -15,6 +15,12 @@ public:
     Noeud_ARN* rechercheElement(const Elem& e) const;
     Noeud_ARN* recherche_element_noeud(const Elem& e, Noeud_ARN* n) const;
 
+    // Procédure d'appel pour ajouter un élément e passé en paramètre.
+    void insere_element(const Elem& e);
+    // Procédure récursive qui va ajouter un élément à l'arbre rouge et noir en mettant une couleur au noeud.
+    Noeud_ARN* insere_element_noeud(const Elem&e, Noeud_ARN* parent);
+
+
     // Vide l'arbre en profondeur.
     void vide();
     void vide_arbre_noeud(Noeud_ARN* n);

@@ -49,9 +49,14 @@ Noeud_ARN* Arbre_ARN::recherche_element_noeud(const Elem& e, Noeud_ARN* n) const
     return n;
 }
 
-
-
-
+void Arbre_ARN::insere_element(const Elem& e)
+{
+    racine = insere_element_noeud(e, racine);
+}
+Noeud_ARN* Arbre_ARN::insere_element_noeud(const Elem& e, Noeud_ARN* parent)
+{
+    
+}
 
 void Arbre_ARN::test_arbre_RN()
 {
