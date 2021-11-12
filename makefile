@@ -1,7 +1,9 @@
 CC=g++
 CFLAGS=-Wall -O
+# Chemin vers le/les execs.
+EXEC_FOLDER = ./bin/
 # Nom de l'exec
-EXEC=./bin/tp_7
+EXEC= $(EXEC_FOLDER)tp_7
 # Chemin vers les fichiers .o 
 OBJ_FOLDER = ./object/
 # Chemin vers tous les fichiers .o
@@ -13,10 +15,12 @@ MODULE_FOLDER = ./src/module/
 
 
 #Toutes les règles pour créer l'exe du programme.
-all: $(EXEC)
+all: Dossiers $(EXEC)
+
+Dossiers: $(OBJ_FOLDER) $(EXEC_FOLDER)
 
 $(EXEC): $(OBJ_EXEC) 
-	$(CC) -o $(EXEC) $(OBJ_EXEC)
+	 $(CC) -o $(EXEC) $(OBJ_EXEC)
 
 $(OBJ_FOLDER)element.o: $(SRC_FOLDER)element.cpp
 	$(CC) -o $(OBJ_FOLDER)element.o -c $(SRC_FOLDER)element.cpp $(CFLAGS)
@@ -36,6 +40,11 @@ $(OBJ_FOLDER)Noeud_ARN.o: $(SRC_FOLDER)Noeud_ARN.cpp $(MODULE_FOLDER)element.h
 $(OBJ_FOLDER)main.o: $(SRC_FOLDER)main.cpp $(MODULE_FOLDER)element.h $(MODULE_FOLDER)arbre.h $(MODULE_FOLDER)Noeud.h
 	$(CC) -o $(OBJ_FOLDER)main.o -c $(SRC_FOLDER)main.cpp $(CFLAGS)
 
+
+$(OBJ_FOLDER): 
+	mkdir $(OBJ_FOLDER)
+$(EXEC_FOLDER):
+	mkdir $(EXEC_FOLDER)
 
 # Règle pour le nettoyage.
 clean:
