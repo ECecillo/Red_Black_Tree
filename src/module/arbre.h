@@ -23,7 +23,7 @@ class Arbre
         // Insere l'élément e que l'on prend dans le main.
         void insere_element(const Elem& e);
         // Procédure récursive qui va ajouter l'élément à l'endroit le plus profond de la branche gauche ou droite.
-        Noeud* insere_element_partir_Noeud(Noeud* n,const Elem& e);
+        void insere_element_partir_Noeud(Noeud*& n,const Elem& e);
         
         // Propose un menu pour l'utilisateur qui peut choisir le type d'affichage (Infixe, postfixe, préfixe).
         void menu_choix_affichage_arbre() const;
