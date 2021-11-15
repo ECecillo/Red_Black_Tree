@@ -20,6 +20,13 @@ public:
     // Procédure récursive qui va ajouter un élément à l'arbre rouge et noir en mettant une couleur au noeud.
     Noeud_ARN* insere_element_noeud(const Elem&e, Noeud_ARN* parent);
 
+    // Rotation du Noeud à droite.
+    // Retourne le nouveau Noeud parent qui est le fils gauche du parent.
+    void rotationDroite(Noeud_ARN* parent);
+
+    // Rotation Gauche 
+    void rotationGauche(Noeud_ARN* parent);
+
 
     // Vide l'arbre en profondeur.
     void vide();

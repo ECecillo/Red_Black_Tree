@@ -18,12 +18,14 @@ Ce projet est réalisé dans le cadre de l'UE LIFAP6.
 
 ### Sources
 ---
-[Source Wikipedia](https://fr.wikipedia.org/wiki/Arbre_bicolore)
+[Rappel sur les arbres](https://fr.wikipedia.org/wiki/Arbre_bicolore)
 
 [GeeksForGeeks](https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/)
 
 
 [Rotation Arbre binaire](https://fr.wikipedia.org/wiki/Rotation_d%27un_arbre_binaire_de_recherche)
+
+[Arbre Rouge et Noir](https://fr.wikipedia.org/wiki/Arbre_bicolore)
 ### Exemple d'abre Rouge et Noir
 ---
 ![Image Arbre Rouge et noir](https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Red-black_tree_example.svg/720px-Red-black_tree_example.svg.png)
