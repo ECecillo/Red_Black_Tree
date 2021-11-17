@@ -91,7 +91,7 @@ void Arbre::menu_choix_affichage_arbre() const
 void Arbre::espacement_affichage_arbre(const int &profondeur) const
 {
     for (int i = 0; i < profondeur; i++)
-        cout << " ";
+        cout << "            ";
 }
 
 void Arbre::affichage_PostFixe() const
