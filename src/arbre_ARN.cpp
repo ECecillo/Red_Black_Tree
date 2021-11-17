@@ -1,4 +1,5 @@
 #include "module/arbre_ARN.h"
+#include <unistd.h>
 
 Arbre_ARN::Arbre_ARN()
 {
@@ -54,85 +55,94 @@ void Arbre_ARN::insere_element(const Elem &e)
 {
     // Procédure récursif
     insere_element_noeud(racine, e);
+    if (racine->couleur == 'r')
+        racine->couleur = 'n';
 }
 void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 {
+    cout << e << endl;
     // On fait comme pour l'insertion dans les arbres Binaire de recherche pour le moment et le nouveau noeud est de couleur rouge auto.
-    if (n != NULL && n->cle > e)
-    {
-        if (n->fg != NULL)
-        {
-            insere_element_noeud(n->fg, e);
-            cout << "fin de l'appel récursif côté gauche." << endl;
-            // Appel de la procédure qui va tester pour chaque par rapport au noeud N à la remonté si on est équilibré ou pas.
-            gere_cas_desequilibre_gauche(n);
-            return;
-        }
-        else
-            n->fg = new Noeud_ARN(e, 'r');
-    }
-    else if (n != NULL)
-    {
-        if (n->fd != NULL)
-        {
-            insere_element_noeud(n->fd, e);
-            cout << "fin de l'appel récursif côté droit." << endl;
-            cout << n->cle << endl;
-            gere_cas_desequilibre_droite(n);
-            return;
-        }
-        else
-            n->fd = new Noeud_ARN(e, 'r');
-    }
-    else if (n == NULL) // Si on a rien dans l'abr (on est en train d'ajouter la racine).
+    if (n == NULL) // Si on a rien dans l'abr (on est en train d'ajouter la racine).
     {
         cout << "On ajoute le nouvelle élément" << endl;
         n = new Noeud_ARN(e, 'r'); // On met la couleur à noir car la racine doit être Noir d'après la première propriété.
     }
+    else if (n->cle > e)
+    {
+        cout << n->cle << endl;
+        cout << "J'insere à gauche" << endl;
+        insere_element_noeud(n->fg, e);
+        // Appel de la procédure qui va tester pour chaque par rapport au noeud N à la remonté si on est équilibré ou pas.
+        gere_cas_desequilibre_gauche(n);
+        return;
+    }
+    else if (n->cle < e)
+    {
+        insere_element_noeud(n->fd, e);
+        gere_cas_desequilibre_droite(n);
+        return;
+    }
 }
 void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
 {
-    if (n == racine) // Si le Noeud est la racine alors on doit mettre la racine à Noir d'après la propriété 1.
-        n->couleur = 'n';
-    if (n->fg->couleur == 'r' &&
-        n->fd->couleur == 'r')
+    cout << "Debut proc desequilibre gauche" << endl;
+    if(n->cle == 10)
+        cout << n->fg->cle << " " << n->fg->couleur << endl;
+    if (n->fd != NULL)
     {
-        gere_cas_oncle_pere_rouge(n);
+        cout << "ALLO " << endl;
+        sleep(1);
+        if (n->fg->couleur == 'r' &&
+            n->fd->couleur == 'r')
+        {
+            cout << "Cas oncle" << endl;
+            gere_cas_oncle_pere_rouge(n);
+        }
     }
-    else if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
+    else if (n->fg->fd != NULL || n->fg->fg != NULL)
     {
-        gere_cas_ligne_rouge_gauche(n);
+        if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
+        {
+            cout << "Cas ligne" << endl;
+            gere_cas_ligne_rouge_gauche(n);
+        }
+        else if (n->fg->couleur == 'r' && n->fg->fd->couleur == 'r')
+        {
+            cout << "Triangle gauche" << endl;
+            gere_cas_triangle_rouge_gauche(n);
+        }
     }
-    else if (n->fg->couleur == 'r' && n->fg->fd->couleur == 'r')
-    {
-        gere_cas_triangle_rouge_gauche(n);
-    }
+    cout << "Fin gauche" << endl;
 }
 void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
 {
-    cout << "Procédure gere desequilibre droite "<< endl;
-    if (n == racine) // Si le Noeud est la racine alors on doit mettre la racine à Noir d'après la propriété 1.
+    cout << "Procédure gere desequilibre droite " << endl;
+    cout << "Valeur du noeud parent actuel " << n->cle << endl;
+    sleep(1);
+    //cout << n->fg << endl;
+    if (n->fg != NULL)
     {
-        cout << "racine noir" << endl;
-        cout << n->cle << endl;
-        n->couleur = 'n';
+        if (n->fg->couleur == 'r' &&
+            n->fd->couleur == 'r')
+        {
+            cout << "Cas oncle" << endl;
+            gere_cas_oncle_pere_rouge(n);
+        }
     }
-    if (n->fg->couleur == 'r' &&
-        n->fd->couleur == 'r')
+    else if (n->fd->fg != NULL || n->fd->fd != NULL)
     {
-        cout << "Cas oncle" << endl;
-        gere_cas_oncle_pere_rouge(n);
+        if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
+        {
+            cout << "Cas ligne rouge" << endl;
+            gere_cas_ligne_rouge_droite(n);
+        }
+        else if (n->fd->couleur == 'r' && n->fd->fg->couleur == 'r')
+        {
+            cout << "Cas triangle" << endl;
+            gere_cas_triangle_rouge_droite(n);
+        }
     }
-    else if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
-    {
-        cout << "Cas ligne rouge" << endl;
-        gere_cas_ligne_rouge_droite(n);
-    }
-    else if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
-    {
-        cout << "Cas triangle" << endl;
-        gere_cas_triangle_rouge_droite(n);
-    }
+    cout << "Fin equilibrage" << endl;
 }
 void Arbre_ARN::gere_cas_oncle_pere_rouge(Noeud_ARN *&n)
 {
@@ -152,8 +162,8 @@ void Arbre_ARN::gere_cas_ligne_rouge_gauche(Noeud_ARN *&n)
     rotationDroite(n);
     // Le nouveau Grand-parent est le Parent_Noeud.
     // On inverse les couleurs du grand-parent et du Parent.
-    char temp = Parent_Noeud->couleur;
-    n->fg->couleur = grand_parent->couleur;
+    char temp = n->fd->couleur;
+    n->fd->couleur = n->couleur;
     n->couleur = temp;
 
     assert(n->couleur == 'r' && n == Parent_Noeud->fd);
@@ -171,23 +181,19 @@ void Arbre_ARN::gere_cas_triangle_rouge_gauche(Noeud_ARN *&n)
 
     // ===============
     // On inverse les couleur du nouveau père avec l'ancien grand père.
-    char temp = n->couleur; // couleur du grand père.
+    char temp = n->couleur;      // couleur du grand père.
     n->couleur = n->fd->couleur; // Le nouveau père prend la couleur du grand père.
-    n->fd->couleur = temp; // le grand père va prendre l'ancienne couleur du père qui est n mtn.
+    n->fd->couleur = temp;       // le grand père va prendre l'ancienne couleur du père qui est n mtn.
 }
 void Arbre_ARN::gere_cas_ligne_rouge_droite(Noeud_ARN *&n)
 {
-    Noeud_ARN *grand_parent = n;
-    Noeud_ARN *Parent_Noeud = n->fd;
     // Parent devient 'grand parent'.
-    rotationDroite(n);
+    rotationGauche(n);
     // Le nouveau Grand-parent est le Parent_Noeud.
     // On inverse les couleurs du grand-parent et du Parent.
-    char temp = Parent_Noeud->couleur;
-    n->fd->couleur = grand_parent->couleur;
+    char temp = n->fg->couleur;
+    n->fg->couleur = n->couleur;
     n->couleur = temp;
-
-    assert(n->couleur == 'r' && n == Parent_Noeud->fd);
 }
 void Arbre_ARN::gere_cas_triangle_rouge_droite(Noeud_ARN *&n)
 {
@@ -202,11 +208,10 @@ void Arbre_ARN::gere_cas_triangle_rouge_droite(Noeud_ARN *&n)
 
     // ===============
     // On inverse les couleur du nouveau père avec l'ancien grand père.
-    char temp = n->couleur; // couleur du grand père.
+    char temp = n->couleur;      // couleur du grand père.
     n->couleur = n->fd->couleur; // Le nouveau père prend la couleur du grand père.
-    n->fd->couleur = temp; // le grand père va prendre l'ancienne couleur du père qui est n mtn.
+    n->fd->couleur = temp;       // le grand père va prendre l'ancienne couleur du père qui est n mtn.
 }
-
 
 void Arbre_ARN::rotationGauche(Noeud_ARN *&parent)
 {
@@ -230,23 +235,22 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
 }
 void Arbre_ARN::test_arbre_RN()
 {
-    
+
     insere_element(4);
-    cout << "Ajout de 4 ok" << endl;
     Elem valeur_racine_abr_local = racine->cle;
     assert(valeur_racine_abr_local == 4);
     insere_element(10);
-    cout << "Insere 10" << endl;
     insere_element(14);
-    cout << "Fin insere" << endl;
     insere_element(2);
+    sleep(10);
     insere_element(1);
     insere_element(7);
     insere_element(9);
     insere_element(12);
     insere_element(22);
-    insere_element(22);
     insere_element(100);
+    cout << "Debut insere 45" << endl;
+    sleep(1);
     insere_element(45);
     insere_element(32);
     insere_element(29);
