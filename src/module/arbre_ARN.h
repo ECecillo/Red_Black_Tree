@@ -41,6 +41,9 @@ public:
     // Rotation Gauche
     void rotationGauche(Noeud_ARN *&parent);
 
+    void afficher_noeud(Noeud_ARN* n, int profondeur, int code) const;
+    void dessineArbreBR();
+
     // Vide l'arbre en profondeur.
     void vide();
     void vide_arbre_noeud(Noeud_ARN *n);
