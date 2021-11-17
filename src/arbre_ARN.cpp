@@ -57,6 +57,7 @@ void Arbre_ARN::insere_element(const Elem &e)
     insere_element_noeud(racine, e);
     if (racine->couleur == 'r')
         racine->couleur = 'n';
+    dessineArbreBR();
 }
 void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 {
@@ -112,7 +113,6 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
             gere_cas_triangle_rouge_gauche(n);
         }
     }
-    cout << "Fin gauche" << endl;
 }
 void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
 {
@@ -142,7 +142,6 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
             gere_cas_triangle_rouge_droite(n);
         }
     }
-    cout << "Fin equilibrage" << endl;
 }
 void Arbre_ARN::gere_cas_oncle_pere_rouge(Noeud_ARN *&n)
 {
@@ -156,8 +155,6 @@ void Arbre_ARN::gere_cas_oncle_pere_rouge(Noeud_ARN *&n)
 }
 void Arbre_ARN::gere_cas_ligne_rouge_gauche(Noeud_ARN *&n)
 {
-    Noeud_ARN *grand_parent = n;
-    Noeud_ARN *Parent_Noeud = n->fg;
     // Parent devient 'grand parent'.
     rotationDroite(n);
     // Le nouveau Grand-parent est le Parent_Noeud.
@@ -166,13 +163,10 @@ void Arbre_ARN::gere_cas_ligne_rouge_gauche(Noeud_ARN *&n)
     n->fd->couleur = n->couleur;
     n->couleur = temp;
 
-    assert(n->couleur == 'r' && n == Parent_Noeud->fd);
+    assert(n->couleur == 'n' && n->fd->couleur == 'r');
 }
 void Arbre_ARN::gere_cas_triangle_rouge_gauche(Noeud_ARN *&n)
 {
-    Noeud_ARN *grand_parent = n;
-    Noeud_ARN *Parent_Noeud = n->fg;
-
     // Double rotation à faire.
     // 1 - Rotation sur le fils-gauche du grand-père où le noeud droit du gauche est devenu Parent.
     rotationGauche(n->fg);
@@ -197,8 +191,6 @@ void Arbre_ARN::gere_cas_ligne_rouge_droite(Noeud_ARN *&n)
 }
 void Arbre_ARN::gere_cas_triangle_rouge_droite(Noeud_ARN *&n)
 {
-    Noeud_ARN *grand_parent = n;
-    Noeud_ARN *Parent_Noeud = n->fd;
 
     // Double rotation à faire.
     // 1 - Rotation sur le fils-gauche du grand-père où le noeud droit du gauche est devenu Parent.
@@ -242,7 +234,6 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(10);
     insere_element(14);
     insere_element(2);
-    sleep(10);
     insere_element(1);
     insere_element(7);
     insere_element(9);
@@ -255,4 +246,5 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(32);
     insere_element(29);
     insere_element(3);
+    sleep(10);
 }
