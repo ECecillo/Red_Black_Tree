@@ -52,54 +52,13 @@ Noeud_ARN *Arbre_ARN::recherche_element_noeud(const Elem &e, Noeud_ARN *n) const
 }
 
 
-void Arbre_ARN::afficher_noeud(Noeud_ARN* n, int profondeur, int code) const{
-  int largeur = 5 ;
-  if(n) {
-    afficher_noeud(n->fd ,profondeur+1, code*2+1) ;
-    int i ;
-    for(i = 0; i < profondeur-1; ++i) {
-      if(((code >> (profondeur-i-1)) & 1 ) != ((code >> (profondeur-i-2)) & 1)) {
-        cout  << V_BRANCH ;
-      } else {
-        cout  << " " ;
-      }
-      for(int l = 0; l < largeur; ++l) {
-        cout  << " " ;
-      }
-    }
-
-    if(code%2) {
-      cout  << UPPER_BRANCH ;
-    } else {
-      if(profondeur) {
-        cout  << LOWER_BRANCH ;
-      }
-    }
-
-    if(profondeur) {
-      for(int l = 0; l < largeur; ++l) {
-        cout  << H_BRANCH ;
-      }
-    }
-    cout << SPLIT;
-    cout << n->cle << " " << n->couleur; /*<< " -- " << n->hauteur*/
-    cout << endl;
-    afficher_noeud(n->fg, profondeur+1, code*2) ;
-  }
-}
-
-void Arbre_ARN::dessineArbreBR() {
-    afficher_noeud(racine, 0, 0) ;
-}
-
-
 void Arbre_ARN::insere_element(const Elem &e)
 {
     // Procédure récursif
     insere_element_noeud(racine, e);
     if (racine->couleur == 'r')
         racine->couleur = 'n';
-    dessineArbreBR();
+    //dessineArbreBR();
 }
 void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 {

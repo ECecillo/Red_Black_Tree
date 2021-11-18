@@ -3,13 +3,6 @@
 
 #include "Noeud_ARN.h"
 
-static const char* SPLIT = "+" ;
-static const char* V_BRANCH = "|" ;
-static const char* H_BRANCH = "-" ;
-static const char* UPPER_BRANCH = "+" ;
-static const char* LOWER_BRANCH = "+" ;
-
-
 class Arbre_ARN
 {
 public:
