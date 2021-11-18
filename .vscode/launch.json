@@ -8,7 +8,7 @@
             "name": "(gdb) Lancer",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}/bin/arbre_exec",
+            "program": "${workspaceFolder}/bin/tp_7",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
