@@ -9,7 +9,6 @@ static const char* H_BRANCH = "-" ;
 static const char* UPPER_BRANCH = "+" ;
 static const char* LOWER_BRANCH = "+" ;
 
-
 class Arbre_ARN
 {
 public:
