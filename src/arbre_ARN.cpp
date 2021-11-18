@@ -57,7 +57,7 @@ void Arbre_ARN::insere_element(const Elem &e)
     insere_element_noeud(racine, e);
     if (racine->couleur == 'r')
         racine->couleur = 'n';
-    dessineArbreBR();
+//    dessineArbreBR();
 }
 void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 {
@@ -70,7 +70,7 @@ void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
     }
     else if (n->cle > e)
     {
-        cout << n->cle << endl;
+        cout << n->cle << " " << n->couleur << endl;
         cout << "J'insere à gauche" << endl;
         insere_element_noeud(n->fg, e);
         // Appel de la procédure qui va tester pour chaque par rapport au noeud N à la remonté si on est équilibré ou pas.
@@ -87,7 +87,7 @@ void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
 {
     cout << "Debut proc desequilibre gauche" << endl;
-    if(n->cle == 10)
+    if (n->cle == 10)
         cout << n->fg->cle << " " << n->fg->couleur << endl;
     if (n->fd != NULL)
     {
@@ -100,14 +100,17 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
             gere_cas_oncle_pere_rouge(n);
         }
     }
-    else if (n->fg->fd != NULL || n->fg->fg != NULL)
+    else if ( n->fg->fg != NULL)
     {
         if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
         {
             cout << "Cas ligne" << endl;
             gere_cas_ligne_rouge_gauche(n);
         }
-        else if (n->fg->couleur == 'r' && n->fg->fd->couleur == 'r')
+    }
+    else if(n->fg->fd != NULL)
+    {
+        if (n->fg->couleur == 'r' && n->fg->fd->couleur == 'r')
         {
             cout << "Triangle gauche" << endl;
             gere_cas_triangle_rouge_gauche(n);
@@ -117,8 +120,10 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
 void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
 {
     cout << "Procédure gere desequilibre droite " << endl;
-    cout << "Valeur du noeud parent actuel " << n->cle << endl;
+    cout << "Valeur du noeud parent actuel " << n->cle << " " << n->couleur << endl;
+    cout << n->fd->fd << endl;
     sleep(1);
+    cout << "Debut" << endl;
     //cout << n->fg << endl;
     if (n->fg != NULL)
     {
@@ -129,14 +134,17 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
             gere_cas_oncle_pere_rouge(n);
         }
     }
-    else if (n->fd->fg != NULL || n->fd->fd != NULL)
+    else if (n->fd->fd != NULL)
     {
         if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
         {
             cout << "Cas ligne rouge" << endl;
             gere_cas_ligne_rouge_droite(n);
         }
-        else if (n->fd->couleur == 'r' && n->fd->fg->couleur == 'r')
+    }
+    else if (n->fd->fg != NULL)
+    {
+        if (n->fd->couleur == 'r' && n->fd->fg->couleur == 'r')
         {
             cout << "Cas triangle" << endl;
             gere_cas_triangle_rouge_droite(n);
@@ -241,8 +249,8 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(22);
     insere_element(100);
     cout << "Debut insere 45" << endl;
-    sleep(1);
     insere_element(45);
+    sleep(1);
     insere_element(32);
     insere_element(29);
     insere_element(3);
