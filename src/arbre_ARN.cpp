@@ -139,13 +139,26 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
 {
     if (n->fd != NULL)
     {
-        sleep(1);
         if (n->fg->couleur == 'r' &&
             n->fd->couleur == 'r')
         {
-            cout << "Cas oncle" << endl;
-            gere_cas_oncle_pere_rouge(n);
+            if(n->fg->fg != NULL || n->fg->fd != NULL)
+            {
+                if(n->fg->fg->couleur == 'r'|| n->fg->fd->couleur == 'r')
+                {
+                    gere_cas_oncle_pere_rouge(n);
+                }
+            }
         }
+        // Sert à rien.
+        /* else if (n->fg->fg != NULL)
+        {
+            if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
+            {
+                cout << "Cas ligne rouge" << endl;
+                gere_cas_ligne_rouge_gauche(n);
+            }
+        } */
     }
     else if (n->fg->fg != NULL)
     {
@@ -292,11 +305,11 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
 }
 void Arbre_ARN::test_arbre_RN()
 {
-
-    //insere_element(4);
-    //Elem valeur_racine_abr_local = racine->cle;
-    //assert(valeur_racine_abr_local == 4);
-    /* insere_element(10);
+/* 
+    insere_element(4);
+    Elem valeur_racine_abr_local = racine->cle;
+    assert(valeur_racine_abr_local == 4);
+    insere_element(10);
     insere_element(14);
     insere_element(2);
     insere_element(1);
