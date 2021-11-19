@@ -142,23 +142,16 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
         if (n->fg->couleur == 'r' &&
             n->fd->couleur == 'r')
         {
-            if(n->fg->fg != NULL || n->fg->fd != NULL)
-            {
-                if(n->fg->fg->couleur == 'r'|| n->fg->fd->couleur == 'r')
-                {
-                    gere_cas_oncle_pere_rouge(n);
-                }
-            }
+            gere_cas_oncle_pere_rouge(n);
         }
-        // Sert à rien.
-        /* else if (n->fg->fg != NULL)
+        else if (n->fg->fg != NULL)
         {
             if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
             {
-                cout << "Cas ligne rouge" << endl;
+                cout << "Cas ligne" << endl;
                 gere_cas_ligne_rouge_gauche(n);
             }
-        } */
+        }
     }
     else if (n->fg->fg != NULL)
     {
@@ -185,14 +178,7 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
         if (n->fg->couleur == 'r' &&
             n->fd->couleur == 'r')
         {
-            if (n->fd->fd != NULL || n->fd->fg != NULL)
-            {
-                if (n->fd->fd->couleur == 'r' || n->fd->fg->couleur == 'r')
-                {
-                    cout << "Cas oncle" << endl;
-                    gere_cas_oncle_pere_rouge(n);
-                }
-            }
+            gere_cas_oncle_pere_rouge(n);
         }
         else if (n->fd->fd != NULL)
         {
@@ -223,13 +209,19 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
 }
 void Arbre_ARN::gere_cas_oncle_pere_rouge(Noeud_ARN *&n)
 {
-    // Je passe le père et l'oncle en noir.
-    // Père.
-    n->fg->couleur = 'n';
-    // Oncle
-    n->fd->couleur = 'n';
-    // Je passe le grand père en rouge.
-    n->couleur = 'r';
+    if (n->fg != NULL || n->fd != NULL)
+    {
+        if (n->fg->couleur == 'r' || n->fd->couleur == 'r')
+        {
+            // Je passe le père et l'oncle en noir.
+            // Père.
+            n->fg->couleur = 'n';
+            // Oncle
+            n->fd->couleur = 'n';
+            // Je passe le grand père en rouge.
+            n->couleur = 'r';
+        }
+    }
 }
 void Arbre_ARN::gere_cas_ligne_rouge_gauche(Noeud_ARN *&n)
 {
@@ -305,7 +297,7 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
 }
 void Arbre_ARN::test_arbre_RN()
 {
-/* 
+    
     insere_element(4);
     Elem valeur_racine_abr_local = racine->cle;
     assert(valeur_racine_abr_local == 4);
@@ -318,16 +310,14 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(12);
     insere_element(22);
     insere_element(100);
-    cout << "Debut insere 45" << endl;
     insere_element(45);
-    sleep(1);
     insere_element(32);
     insere_element(29);
     insere_element(3);
- */
-    for (int i = 0; i < 20; i++)
+
+    /* for (int i = 0; i < 20; i++)
     {
         cout << "Debut" << endl;
         insere_element(i);
-    }
+    } */
 }
