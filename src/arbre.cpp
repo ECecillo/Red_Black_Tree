@@ -45,20 +45,19 @@ bool Arbre::recherche_a_partir_Noeud(Noeud *n, const Elem &e) const
 
 void Arbre::insere_element(const Elem &e)
 {
-    racine = insere_element_partir_Noeud(racine, e);
-    hauteur += 1;
+    insere_element_partir_Noeud(racine, e);
+    hauteur += 1;   
 }
-Noeud *Arbre::insere_element_partir_Noeud(Noeud *n, const Elem &e)
+void Arbre::insere_element_partir_Noeud(Noeud *&n, const Elem &e)
 {
     if (n == NULL)
         n = new Noeud(e);
 
     else if (n->cle > e)
-        n->fg = insere_element_partir_Noeud(n->fg, e);
+        insere_element_partir_Noeud(n->fg, e);
     else if (n->cle < e)
-        n->fd = insere_element_partir_Noeud(n->fd, e);
-
-    return n;
+        insere_element_partir_Noeud(n->fd, e);
+    return;
 }
 
 void Arbre::menu_choix_affichage_arbre() const

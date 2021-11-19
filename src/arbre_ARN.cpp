@@ -51,7 +51,6 @@ Noeud_ARN *Arbre_ARN::recherche_element_noeud(const Elem &e, Noeud_ARN *n) const
     return n;
 }
 
-
 void Arbre_ARN::insere_element(const Elem &e)
 {
     // Procédure récursif
@@ -62,17 +61,13 @@ void Arbre_ARN::insere_element(const Elem &e)
 }
 void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 {
-    cout << e << endl;
     // On fait comme pour l'insertion dans les arbres Binaire de recherche pour le moment et le nouveau noeud est de couleur rouge auto.
     if (n == NULL) // Si on a rien dans l'abr (on est en train d'ajouter la racine).
     {
-        cout << "On ajoute le nouvelle élément" << endl;
         n = new Noeud_ARN(e, 'r'); // On met la couleur à noir car la racine doit être Noir d'après la première propriété.
     }
     else if (n->cle > e)
     {
-        cout << n->cle << " " << n->couleur << endl;
-        cout << "J'insere à gauche" << endl;
         insere_element_noeud(n->fg, e);
         // Appel de la procédure qui va tester pour chaque par rapport au noeud N à la remonté si on est équilibré ou pas.
         gere_cas_desequilibre_gauche(n);
@@ -87,21 +82,23 @@ void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 }
 void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
 {
-    cout << "Debut proc desequilibre gauche" << endl;
-    if (n->cle == 10)
-        cout << n->fg->cle << " " << n->fg->couleur << endl;
     if (n->fd != NULL)
     {
-        cout << "ALLO " << endl;
-        sleep(1);
         if (n->fg->couleur == 'r' &&
             n->fd->couleur == 'r')
         {
-            cout << "Cas oncle" << endl;
             gere_cas_oncle_pere_rouge(n);
         }
+        else if (n->fg->fg != NULL)
+        {
+            if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
+            {
+                cout << "Cas ligne" << endl;
+                gere_cas_ligne_rouge_gauche(n);
+            }
+        }
     }
-    else if ( n->fg->fg != NULL)
+    else if (n->fg->fg != NULL)
     {
         if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
         {
@@ -109,7 +106,7 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
             gere_cas_ligne_rouge_gauche(n);
         }
     }
-    else if(n->fg->fd != NULL)
+    else if (n->fg->fd != NULL)
     {
         if (n->fg->couleur == 'r' && n->fg->fd->couleur == 'r')
         {
@@ -120,19 +117,21 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
 }
 void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
 {
-    cout << "Procédure gere desequilibre droite " << endl;
-    cout << "Valeur du noeud parent actuel " << n->cle << " " << n->couleur << endl;
-    cout << n->fd->fd << endl;
-    sleep(1);
-    cout << "Debut" << endl;
     //cout << n->fg << endl;
     if (n->fg != NULL)
     {
         if (n->fg->couleur == 'r' &&
             n->fd->couleur == 'r')
         {
-            cout << "Cas oncle" << endl;
             gere_cas_oncle_pere_rouge(n);
+        }
+        else if (n->fd->fd != NULL)
+        {
+            if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
+            {
+                cout << "Cas ligne rouge" << endl;
+                gere_cas_ligne_rouge_droite(n);
+            }
         }
     }
     else if (n->fd->fd != NULL)
@@ -154,13 +153,19 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
 }
 void Arbre_ARN::gere_cas_oncle_pere_rouge(Noeud_ARN *&n)
 {
-    // Je passe le père et l'oncle en noir.
-    // Père.
-    n->fg->couleur = 'n';
-    // Oncle
-    n->fd->couleur = 'n';
-    // Je passe le grand père en rouge.
-    n->couleur = 'r';
+    if (n->fg != NULL || n->fd != NULL)
+    {
+        if (n->fg->couleur == 'r' || n->fd->couleur == 'r')
+        {
+            // Je passe le père et l'oncle en noir.
+            // Père.
+            n->fg->couleur = 'n';
+            // Oncle
+            n->fd->couleur = 'n';
+            // Je passe le grand père en rouge.
+            n->couleur = 'r';
+        }
+    }
 }
 void Arbre_ARN::gere_cas_ligne_rouge_gauche(Noeud_ARN *&n)
 {
@@ -236,11 +241,11 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
 }
 void Arbre_ARN::test_arbre_RN()
 {
-
-    //insere_element(4);
-    //Elem valeur_racine_abr_local = racine->cle;
-    //assert(valeur_racine_abr_local == 4);
-    /* insere_element(10);
+    
+    insere_element(4);
+    Elem valeur_racine_abr_local = racine->cle;
+    assert(valeur_racine_abr_local == 4);
+    insere_element(10);
     insere_element(14);
     insere_element(2);
     insere_element(1);
@@ -249,18 +254,14 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(12);
     insere_element(22);
     insere_element(100);
-    cout << "Debut insere 45" << endl;
     insere_element(45);
-    sleep(1);
     insere_element(32);
     insere_element(29);
     insere_element(3);
- */
-    for (int i = 0; i < 20; i++)
+
+    /* for (int i = 0; i < 20; i++)
     {
         cout << "Debut" << endl;
         insere_element(i);
-
-    }
-
+    } */
 }
