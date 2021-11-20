@@ -41,8 +41,23 @@ public:
     // Rotation Gauche
     void rotationGauche(Noeud_ARN *&parent);
 
-    void afficher_noeud(Noeud_ARN* n, int profondeur, int code) const;
-    void dessineArbreBR();
+    // Propose un menu pour l'utilisateur qui peut choisir le type d'affichage (Infixe, postfixe, préfixe).
+    void menu_choix_affichage_arbre() const;
+
+    // Procédure pour mettre un peu d'arborescence.
+    void espacement_affichage_arbre(const int& profondeur) const;
+
+    // Procédure d'affichage infixe.
+    void affichage_Infixe() const;
+    void affichage_Infixe_Noeud(Noeud_ARN* n, int &profondeur) const;
+        
+    // Procédure d'affichage PostFixe.
+    void affichage_PostFixe() const;
+    void affichage_PostFixe_Noeud(Noeud_ARN* n, int &profondeur) const;
+
+    // Procédure d'affichage Prefixe.
+    void affichage_Prefixe() const;
+    void affichage_Prefixe_Noeud(Noeud_ARN* n, int &profondeur) const;
 
     // Vide l'arbre en profondeur.
     void vide();
