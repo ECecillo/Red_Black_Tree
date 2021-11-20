@@ -3,6 +3,12 @@
 
 #include "Noeud_ARN.h"
 
+#define ESPACEMENT_AFFICHAGE 5
+static const char* V_BRANCH = "|" ;
+static const char* H_BRANCH = "─" ;
+static const char* UPPER_BRANCH = "╭" ;
+static const char* LOWER_BRANCH = "╰" ;
+
 class Arbre_ARN
 {
 public:
@@ -41,12 +47,17 @@ public:
     // Rotation Gauche
     void rotationGauche(Noeud_ARN *&parent);
 
-    void afficher_noeud(Noeud_ARN* n, int profondeur, int code) const;
-    void dessineArbreBR();
+    // Appel récursif pour affichage du noeud de façon infixe.
+    void affichageSsArbre(Noeud_ARN* n, int profondeur, int code) const;
+    // Procédure appel pour afficher.
+    void afficherARN() const;
+    // Affichage des éléments passés en paramètre.
+    void affichageCouleur(const Elem, const char) const;
 
     // Vide l'arbre en profondeur.
     void vide();
     void vide_arbre_noeud(Noeud_ARN *n);
+
     // Procédure de test pour les arbre rouge et noir.
     void test_arbre_RN();
     // Opérateur.
@@ -55,3 +66,5 @@ private:
 };
 
 #endif
+
+// E ⥀.⥀ C
