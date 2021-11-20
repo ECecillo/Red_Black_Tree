@@ -239,6 +239,108 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
     Pivot->fd = parent;
     parent = Pivot;
 }
+
+void Arbre_ARN::menu_choix_affichage_arbre() const
+{
+    cout << "Choisir l'affichage que vous voulez faire pour l'arbre : " << endl;
+    cout << "1 - Affichage Infixe " << endl;
+    cout << "2 - Affichage PostFixe " << endl;
+    cout << "3 - Affichage  Préfixe" << endl;
+
+    char choix;
+    cin >> choix;
+    switch (choix)
+    {
+    case '1':
+        affichage_Infixe();
+        break;
+    case '2':
+        affichage_PostFixe();
+        break;
+    case '3':
+        affichage_Prefixe();
+        break;
+
+    default:
+        cout << "Votre choix est incorrect veuillez réessayer." << endl;
+        break;
+    }
+}
+
+void Arbre_ARN::espacement_affichage_arbre(const int &profondeur) const
+{
+    for (int i = 0; i < profondeur; i++)
+        cout << "            ";
+}
+
+void Arbre_ARN::affichage_PostFixe() const
+{
+    int profondeur = 0;
+    affichage_PostFixe_Noeud(racine, profondeur);
+}
+
+void Arbre_ARN::affichage_PostFixe_Noeud(Noeud_ARN *n, int &profondeur) const
+{
+    if (n == NULL)
+    {
+        espacement_affichage_arbre(profondeur);
+        cout << "~";
+    }
+    if (n != NULL)
+    {
+        affichage_PostFixe_Noeud(n->fg, profondeur = +10);
+        affichage_PostFixe_Noeud(n->fd, profondeur += 10);
+        cout << endl;
+        espacement_affichage_arbre(profondeur);
+        cout << " [ " << n->cle << " ]" << " [ " << n->couleur << " ]" << endl;
+    }
+}
+
+void Arbre_ARN::affichage_Infixe() const
+{
+    int profondeur = 0;
+    affichage_Infixe_Noeud(racine, profondeur);
+}
+void Arbre_ARN::affichage_Infixe_Noeud(Noeud_ARN *n, int &profondeur) const
+{
+    if (n == NULL)
+    {
+        espacement_affichage_arbre(profondeur);
+        cout << "~";
+    }
+    if (n != NULL)
+    {
+        affichage_Infixe_Noeud(n->fg, profondeur = +10);
+        cout << endl;
+        espacement_affichage_arbre(profondeur);
+        cout << " [ " << n->cle << " ]" << " [ " << n->couleur << " ]" << endl;
+        affichage_Infixe_Noeud(n->fd, profondeur += 10);
+    }
+}
+
+void Arbre_ARN::affichage_Prefixe() const
+{
+    int profondeur = 0;
+    cout << "La valeur de la racine est " << racine->cle << endl;
+    affichage_Infixe_Noeud(racine, profondeur);
+}
+void Arbre_ARN::affichage_Prefixe_Noeud(Noeud_ARN *n, int &profondeur) const
+{
+    if (n == NULL)
+    {
+        espacement_affichage_arbre(profondeur);
+        cout << "~";
+    }
+    if (n != NULL)
+    {
+        cout << endl;
+        espacement_affichage_arbre(profondeur);
+        cout << " [ " << n->cle << " ]" << " [ " << n->couleur << " ]" << endl;
+        affichage_Prefixe_Noeud(n->fg, profondeur = +10);
+        affichage_Prefixe_Noeud(n->fd, profondeur += 10);
+    }
+}
+
 void Arbre_ARN::test_arbre_RN()
 {
     
@@ -258,6 +360,8 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(32);
     insere_element(29);
     insere_element(3);
+
+    menu_choix_affichage_arbre();
 
     /* for (int i = 0; i < 20; i++)
     {
