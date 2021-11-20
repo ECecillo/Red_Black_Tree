@@ -18,14 +18,18 @@ Ce projet est réalisé dans le cadre de l'UE LIFAP6.
 
 ### Sources
 ---
+
+[Procédure affichage Arbre](https://forge.univ-lyon1.fr/lifap6/tp-arbretas-etu/-/blob/master/Code/arbre.cpp)
+
 [Rappel sur les arbres](https://fr.wikipedia.org/wiki/Arbre_bicolore)
 
 [GeeksForGeeks](https://www.geeksforgeeks.org/red-black-tree-set-1-introduction-2/)
 
-
 [Rotation Arbre binaire](https://fr.wikipedia.org/wiki/Rotation_d%27un_arbre_binaire_de_recherche)
 
 [Arbre Rouge et Noir](https://fr.wikipedia.org/wiki/Arbre_bicolore)
+
+[Print 2D Tree](https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/)
 ### Exemple d'abre Rouge et Noir
 ---
 ![Image Arbre Rouge et noir](https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Red-black_tree_example.svg/720px-Red-black_tree_example.svg.png)
@@ -96,7 +100,30 @@ Il y a en tous 4 cas à gérer.
 
 > | 5.2 | On fait une rotation gauche si il est à droite.
 
+
+### Affichage d'un Arbre
+---
+**Algorithme**
+```
+Si Noeud non NULL
+    Appel Récursif sur la partie Droite.
+    Retour ligne.
+    On met un certain nombre d'espace en fonction de la profondeur à laquelle on est.
+    On affiche l'élément.
+    Appel Récursif sur la partie gauche.
+Fin
+```
+---
+**Explication**
+> Dans l'idée, on fait l'inverse du parcours infixe (gauche, cle ,droite)
+- On affiche le noeud le plus à droite sur la première ligne.
+- On affiche le noeud le plus à gauche sur la dernière ligne.
+- A chaque fois que l'on atteint le noeud NULL et que l'on sort de l'appel récursif on revient à "l'espacement-1" puis on ajoute un certains nombre de caractère vide sur la ligne qui correspond à la profondeur du noeud.
+- La valeur du noeud sera affiché avec sa couleur.
 ## Code source de l'Arbre Rouge et Noir
 ---
 [Arbre_RN.cpp](https://forge.univ-lyon1.fr/p1805901/tp7_erkan_enzo/-/blob/main/src/arbre_ARN.cpp)
 
+## Code source Arbre binaire 
+---
+[Arbre Binaire de recherche](https://forge.univ-lyon1.fr/p1805901/tp7_erkan_enzo/-/blob/main/src/arbre.cpp)

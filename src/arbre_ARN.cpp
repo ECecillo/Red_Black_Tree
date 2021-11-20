@@ -51,13 +51,57 @@ Noeud_ARN *Arbre_ARN::recherche_element_noeud(const Elem &e, Noeud_ARN *n) const
     return n;
 }
 
+void Arbre_ARN::afficherARN() const
+{
+    affichageSsArbre(racine, 0, 0);
+}
+
+// Procédure affichage fournit par Nicolas Nivolier.
+void Arbre_ARN::affichageSsArbre(Noeud_ARN* n, int profondeur, int code) const{
+  if(n != NULL) {
+    affichageSsArbre(n->fd ,profondeur+1, code*2+1) ;
+    for(int i = 0; i < profondeur-1; ++i) {
+      if(((code >> (profondeur-i-1)) & 1 ) != ((code >> (profondeur-i-2)) & 1)) {
+        cout  << V_BRANCH ;
+      } else {
+        cout  << " " ;
+      }
+      for(int l = 0; l < ESPACEMENT_AFFICHAGE; ++l) {
+        cout  << " " ;
+      }
+    }
+
+    if(code%2) {
+      cout  << UPPER_BRANCH ;
+    } else { // Pour savoir si on est dans la partie gauche ou droite du noeud.
+      if(profondeur) {
+        cout  << LOWER_BRANCH ;
+      }
+    }
+
+    if(profondeur) {
+      for(int l = 0; l < ESPACEMENT_AFFICHAGE; ++l) {
+        cout  << H_BRANCH ;
+      }
+    }
+    affichageCouleur(n->cle, n->couleur);
+    cout << endl;
+    affichageSsArbre(n->fg, profondeur+1, code*2) ;
+  }
+}
+
+void Arbre_ARN::affichageCouleur(const Elem cle, const char couleur) const
+{
+    cout << "┤";
+    cout << cle << " (" << couleur << ")";
+}
+
 void Arbre_ARN::insere_element(const Elem &e)
 {
     // Procédure récursif
     insere_element_noeud(racine, e);
     if (racine->couleur == 'r')
         racine->couleur = 'n';
-    //dessineArbreBR();
 }
 void Arbre_ARN::insere_element_noeud(Noeud_ARN *&n, const Elem &e)
 {
@@ -241,7 +285,7 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
 }
 void Arbre_ARN::test_arbre_RN()
 {
-    
+    /* 
     insere_element(4);
     Elem valeur_racine_abr_local = racine->cle;
     assert(valeur_racine_abr_local == 4);
@@ -258,10 +302,12 @@ void Arbre_ARN::test_arbre_RN()
     insere_element(32);
     insere_element(29);
     insere_element(3);
-
-    /* for (int i = 0; i < 20; i++)
+ */
+    for (int i = 0; i < 20; i++)
     {
-        cout << "Debut" << endl;
         insere_element(i);
-    } */
+        afficherARN();
+        cout << endl;
+        sleep(5);
+    }
 }
