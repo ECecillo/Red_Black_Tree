@@ -57,7 +57,8 @@ clean:
 	rm -f $(OBJ_FOLDER)*.o $(EXEC)
 mrproper: clean
 	rm -rf $(EXEC_FOLDER) $(OBJ_FOLDER) $(DATA_FOLDER)
-
+affiche_graphique:
+	gnuplot script_graphique_gnuplot.dat
 
 
 # Edité par CECILLON Enzo.

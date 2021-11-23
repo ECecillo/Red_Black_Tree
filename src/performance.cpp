@@ -19,7 +19,6 @@ void Perfomance_Class::choix_test_performance()
 {
     cout << "Saisir le nombre d'Arbre à Initialiser" << endl;
     cin >> nombre_collection;
-    cout << endl;
     cout << "Saisir le nombre d'élément que vous voulez insérer pour tester les perfomances des arbres" << endl;
     cin >> Nombre_element_ajouter;
 }
@@ -37,7 +36,7 @@ void Perfomance_Class::Test_Perfomance_Collection()
         Perfomance_Arbre_Binaire(atoi(choix.c_str()), temps_perf);
         // On va écrire ce temps dans un fichier.
         string nomF = "data/performance_ABR.txt";
-        Creer_Fichier(nomF, temps_perf);
+        Creer_Fichier(nomF, temps_perf, atoi(choix.c_str()));
     }
     else if (type_collection_test == '2') // Arbre Rouge et noir.
     {
@@ -46,7 +45,7 @@ void Perfomance_Class::Test_Perfomance_Collection()
         Perfomance_Arbre_Rouge_Noir(atoi(choix.c_str()), temps_perf);
         // On va écrire ce temps dans un fichier.
         string nomF = "data/performance_ARN.txt";
-        Creer_Fichier(nomF, temps_perf);
+        Creer_Fichier(nomF, temps_perf, atoi(choix.c_str()));
     }
     return;
 }
@@ -112,8 +111,7 @@ void Perfomance_Class::Perfomance_Arbre_Binaire(const int &pas, vector<float> &t
     }
     // A la sortie dans tab_temps on doit avoir tous les chronos pour un certains (nombre d'élément % pas) pour N arbres.
 }
-
-void Perfomance_Class::Creer_Fichier(string &nom_fichier, const vector<float> &temps)
+void Perfomance_Class::Creer_Fichier(string &nom_fichier, const vector<float> &temps, const int &pas)
 {
     //nom_fichier = "../" + nom_fichier;
     struct stat buffer;
@@ -130,15 +128,19 @@ void Perfomance_Class::Creer_Fichier(string &nom_fichier, const vector<float> &t
     }
     ofstream myfile(nom_fichier);
 
+    int n_pour_temps = pas; 
+
     if (myfile.is_open())
     {
         myfile << "# 'nb element' 'Temps' \n";
         for (const auto& valeur_index : temps)
         {
-            myfile << Nombre_element_ajouter;
+            myfile << n_pour_temps;
             myfile << " ";
             myfile << valeur_index;
             myfile << "\n";
+
+            n_pour_temps+= pas;
         }
         myfile.close();
     }
