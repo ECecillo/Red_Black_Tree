@@ -30,7 +30,7 @@ class Perfomance_Class
         // 
         void Perfomance_Arbre_Binaire(const int& pas, vector<float>&); 
 
-        void Creer_Fichier(string &nom_Fichier, const vector <float>& temps_collection);
+        void Creer_Fichier(string &nom_Fichier, const vector <float>& temps_collection, const int &pas);
     private:
         int Nombre_element_ajouter;
         int nombre_collection;

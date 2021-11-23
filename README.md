@@ -1,5 +1,4 @@
-# TP7_Erkan_Enzo
-
+# TP7_Erkan_Enzo 
 # Membres
 
 |  Nom|Prénom  |Numéro étudiant  |
@@ -8,8 +7,23 @@
 | AKSOY | Erkan |1191102 |
 
 
-## Presentation
+# Commande Utiles
+
+### Pour compiler 
 ---
+`make`
+### Netttoyer le répertoire
+---
+`make clean`
+**ou** 
+`make mrproper`
+
+### Dessiner les deux graphes sur la même fenêtre avec gnuplot
+---
+`make affichage_graphique`
+
+
+# Presentation
 Ce projet est réalisé dans le cadre de l'UE LIFAP6.
 
 
@@ -30,13 +44,13 @@ Ce projet est réalisé dans le cadre de l'UE LIFAP6.
 [Arbre Rouge et Noir](https://fr.wikipedia.org/wiki/Arbre_bicolore)
 
 [Print 2D Tree](https://www.geeksforgeeks.org/print-binary-tree-2-dimensions/)
-### Exemple d'abre Rouge et Noir
+## Exemple d'abre Rouge et Noir
 ---
 ![Image Arbre Rouge et noir](https://upload.wikimedia.org/wikipedia/commons/thumb/6/66/Red-black_tree_example.svg/720px-Red-black_tree_example.svg.png)
 
 > La hauteur noire de cet arbre est de 2.
 
-### **Propriétés d'un Arbre Rouge et Noir**
+## **Propriétés d'un Arbre Rouge et Noir**
 ---
 
 |  | Description |
@@ -50,7 +64,7 @@ Ce projet est réalisé dans le cadre de l'UE LIFAP6.
 
 > **Rq Propriété 5** : On notera que l'alternance entre les noeuds de couleur rouge et noirs nous ramène toujours à la même hauteur peu importe la branche ce qui permet d'optimiser les opérations de recherche, insertion ...
 
-### Rotation d'un Arbre
+## Rotation d'un Arbre
 ---
 
 [Source pour algorithme](https://fr.wikipedia.org/wiki/Rotation_d%27un_arbre_binaire_de_recherche)
@@ -78,7 +92,7 @@ parent = Pivot.
 ```
 On utilisera la rotation lorsque l'on ajoutera un nouveau noeud qui va désiquilbré la hauteur de notre Arbre. 
 (Si on a une différence trop importante l'abre deviendra dégénéré et la complexité va augmenter ce que l'on veut pas).
-### Insertion dans un Arbre Rouge Noir.
+## Insertion dans un Arbre Rouge Noir.
 ---
 Il y a en tous 4 cas à gérer.
 
@@ -101,7 +115,7 @@ Il y a en tous 4 cas à gérer.
 > | 5.2 | On fait une rotation gauche si il est à droite.
 
 
-### Affichage d'un Arbre
+## Affichage d'un Arbre
 ---
 **Algorithme**
 ```

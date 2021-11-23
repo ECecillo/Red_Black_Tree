@@ -1,0 +1,2 @@
+plot "./data/performance_ABR.txt" with linespoint, "./data/performance_ARN.txt" with linespoint
+pause -1 "Taper n'importe quelle touche pour fermer."
