@@ -8,6 +8,7 @@
 
 using namespace std;
 
+
 Arbre::Arbre()
 {
     this->racine = 0;
