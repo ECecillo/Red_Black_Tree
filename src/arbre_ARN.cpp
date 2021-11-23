@@ -1,6 +1,14 @@
 #include "module/arbre_ARN.h"
 #include <unistd.h>
 
+#define NB_ARBRE_ROUGE_NOIR 100
+#define ESPACEMENT_AFFICHAGE 5
+static const char* V_BRANCH = "|" ;
+static const char* H_BRANCH = "─" ;
+static const char* UPPER_BRANCH = "╭" ;
+static const char* LOWER_BRANCH = "╰" ;
+
+
 Arbre_ARN::Arbre_ARN()
 {
     racine = NULL;
@@ -57,37 +65,50 @@ void Arbre_ARN::afficherARN() const
 }
 
 // Procédure affichage fournit par Nicolas Nivolier.
-void Arbre_ARN::affichageSsArbre(Noeud_ARN* n, int profondeur, int code) const{
-  if(n != NULL) {
-    affichageSsArbre(n->fd ,profondeur+1, code*2+1) ;
-    for(int i = 0; i < profondeur-1; ++i) {
-      if(((code >> (profondeur-i-1)) & 1 ) != ((code >> (profondeur-i-2)) & 1)) {
-        cout  << V_BRANCH ;
-      } else {
-        cout  << " " ;
-      }
-      for(int l = 0; l < ESPACEMENT_AFFICHAGE; ++l) {
-        cout  << " " ;
-      }
-    }
+void Arbre_ARN::affichageSsArbre(Noeud_ARN *n, int profondeur, int code) const
+{
+    if (n != NULL)
+    {
+        affichageSsArbre(n->fd, profondeur + 1, code * 2 + 1);
+        for (int i = 0; i < profondeur - 1; ++i)
+        {
+            if (((code >> (profondeur - i - 1)) & 1) != ((code >> (profondeur - i - 2)) & 1))
+            {
+                cout << V_BRANCH;
+            }
+            else
+            {
+                cout << " ";
+            }
+            for (int l = 0; l < ESPACEMENT_AFFICHAGE; ++l)
+            {
+                cout << " ";
+            }
+        }
 
-    if(code%2) {
-      cout  << UPPER_BRANCH ;
-    } else { // Pour savoir si on est dans la partie gauche ou droite du noeud.
-      if(profondeur) {
-        cout  << LOWER_BRANCH ;
-      }
-    }
+        if (code % 2)
+        {
+            cout << UPPER_BRANCH;
+        }
+        else
+        { // Pour savoir si on est dans la partie gauche ou droite du noeud.
+            if (profondeur)
+            {
+                cout << LOWER_BRANCH;
+            }
+        }
 
-    if(profondeur) {
-      for(int l = 0; l < ESPACEMENT_AFFICHAGE; ++l) {
-        cout  << H_BRANCH ;
-      }
+        if (profondeur)
+        {
+            for (int l = 0; l < ESPACEMENT_AFFICHAGE; ++l)
+            {
+                cout << H_BRANCH;
+            }
+        }
+        affichageCouleur(n->cle, n->couleur);
+        cout << endl;
+        affichageSsArbre(n->fg, profondeur + 1, code * 2);
     }
-    affichageCouleur(n->cle, n->couleur);
-    cout << endl;
-    affichageSsArbre(n->fg, profondeur+1, code*2) ;
-  }
 }
 
 void Arbre_ARN::affichageCouleur(const Elem cle, const char couleur) const
@@ -137,7 +158,7 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
         {
             if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
             {
-                cout << "Cas ligne" << endl;
+                //cout << "Cas ligne" << endl;
                 gere_cas_ligne_rouge_gauche(n);
             }
         }
@@ -146,7 +167,7 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
     {
         if (n->fg->couleur == 'r' && n->fg->fg->couleur == 'r')
         {
-            cout << "Cas ligne" << endl;
+            //cout << "Cas ligne" << endl;
             gere_cas_ligne_rouge_gauche(n);
         }
     }
@@ -154,7 +175,7 @@ void Arbre_ARN::gere_cas_desequilibre_gauche(Noeud_ARN *&n)
     {
         if (n->fg->couleur == 'r' && n->fg->fd->couleur == 'r')
         {
-            cout << "Triangle gauche" << endl;
+            //cout << "Triangle gauche" << endl;
             gere_cas_triangle_rouge_gauche(n);
         }
     }
@@ -173,7 +194,7 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
         {
             if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
             {
-                cout << "Cas ligne rouge" << endl;
+                //cout << "Cas ligne rouge" << endl;
                 gere_cas_ligne_rouge_droite(n);
             }
         }
@@ -182,7 +203,7 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
     {
         if (n->fd->couleur == 'r' && n->fd->fd->couleur == 'r')
         {
-            cout << "Cas ligne rouge" << endl;
+            //cout << "Cas ligne rouge" << endl;
             gere_cas_ligne_rouge_droite(n);
         }
     }
@@ -190,7 +211,7 @@ void Arbre_ARN::gere_cas_desequilibre_droite(Noeud_ARN *&n)
     {
         if (n->fd->couleur == 'r' && n->fd->fg->couleur == 'r')
         {
-            cout << "Cas triangle" << endl;
+            //cout << "Cas triangle" << endl;
             gere_cas_triangle_rouge_droite(n);
         }
     }
@@ -221,7 +242,7 @@ void Arbre_ARN::gere_cas_ligne_rouge_gauche(Noeud_ARN *&n)
     n->fd->couleur = n->couleur;
     n->couleur = temp;
 
-    assert(n->couleur == 'n' && n->fd->couleur == 'r');
+    //assert(n->couleur == 'n' && n->fd->couleur == 'r');
 }
 void Arbre_ARN::gere_cas_triangle_rouge_gauche(Noeud_ARN *&n)
 {
@@ -285,7 +306,7 @@ void Arbre_ARN::rotationDroite(Noeud_ARN *&parent)
 }
 void Arbre_ARN::test_arbre_RN()
 {
-    /* 
+  /*   
     insere_element(4);
     Elem valeur_racine_abr_local = racine->cle;
     assert(valeur_racine_abr_local == 4);
@@ -307,7 +328,5 @@ void Arbre_ARN::test_arbre_RN()
     {
         insere_element(i);
         afficherARN();
-        cout << endl;
-        sleep(5);
     }
 }

@@ -4,7 +4,10 @@
         "ostream": "cpp",
         "iostream": "cpp",
         "iosfwd": "cpp",
-        "*.tcc": "cpp"
+        "*.tcc": "cpp",
+        "chrono": "cpp",
+        "cstdlib": "cpp",
+        "fstream": "cpp"
     },
     "cmake.configureOnOpen": false
 }
