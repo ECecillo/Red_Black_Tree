@@ -1,13 +1,9 @@
 #ifndef ARBRE_ARN
 #define ARBRE_ARN
 
+#include "element.h"
 #include "Noeud_ARN.h"
-
-#define ESPACEMENT_AFFICHAGE 5
-static const char* V_BRANCH = "|" ;
-static const char* H_BRANCH = "─" ;
-static const char* UPPER_BRANCH = "╭" ;
-static const char* LOWER_BRANCH = "╰" ;
+#include <iostream>
 
 class Arbre_ARN
 {
