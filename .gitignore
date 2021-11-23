@@ -1,4 +1,5 @@
-bin/*
+bin/
 object/
-./.vscode/
+.vscode/
 TODO
+data/
