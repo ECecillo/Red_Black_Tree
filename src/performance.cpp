@@ -24,28 +24,42 @@ void Perfomance_Class::choix_test_performance()
 }
 void Perfomance_Class::Test_Perfomance_Collection()
 {
+    // Permet de choisir le nombre d'arbres et d'éléments.
     choix_test_performance();
     string choix;
+    // Tableau qui va contenir tous les temps dont on aura besoin.
+    cout << "Choisir le PAS pour savoir à partir de combien d'insertion on sauvegarde le temps :" << endl;
+    cin >> choix;
     vector<float> temps_perf;
-    // moyenne total : Temps total pour insérer 1 élément dans N arbre.
-    // moyenne_insertion : Temps pour insérer un élément dans N arbre.
     if (type_collection_test == '1') // Arbre binaire de base.
     {
-        cout << "Choisir le PAS pour savoir à partir de combien d'insertion on sauvegarde le temps :" << endl;
-        cin >> choix;
-        Perfomance_Arbre_Binaire(atoi(choix.c_str()), temps_perf);
+        Perfomance_Arbre_Binaire(1, temps_perf);
         // On va écrire ce temps dans un fichier.
         string nomF = "data/performance_ABR.txt";
         Creer_Fichier(nomF, temps_perf, atoi(choix.c_str()));
     }
     else if (type_collection_test == '2') // Arbre Rouge et noir.
     {
-        cout << "Choisir le PAS pour savoir à partir de combien d'insertion on sauvegarde le temps : " << endl;
-        cin >> choix;
-        Perfomance_Arbre_Rouge_Noir(atoi(choix.c_str()), temps_perf);
+        Perfomance_Arbre_Rouge_Noir(2, temps_perf);
         // On va écrire ce temps dans un fichier.
         string nomF = "data/performance_ARN.txt";
         Creer_Fichier(nomF, temps_perf, atoi(choix.c_str()));
+    }
+    else if(type_collection_test == '3') // On fais le test pour les deux arbres.
+    {
+        // On créer un deuxième vecteur pour pouvoir stocker le temps du deuxième arbre.
+        vector<float> temps_perf_2;
+        // Appel des deux procs pour mettre les temps dans les deux vecteurs.
+        Perfomance_Arbre_Binaire(1,temps_perf);
+        Perfomance_Arbre_Rouge_Noir(2,temps_perf_2);
+        // Définition d'une chaine de char qui va contenir nos deux noms de fichier (NB : on aurait pu en créer 2 mais bon histoire de pas avoir plusieurs variables on ne le fait pas.) 
+        string nom_fichier = "data/performance_ABR.txt";
+        Creer_Fichier(nom_fichier, temps_perf, 1);
+
+        // On créer le fichier pour l'arbre Rouge et Noir.
+        nom_fichier = "data/performance_ARN.txt";
+        Creer_Fichier(nom_fichier, temps_perf, 2);
+        cout << "Fin écriture des deux fichiers." << endl;
     }
     return;
 }
@@ -60,7 +74,6 @@ void Perfomance_Class::Perfomance_Arbre_Rouge_Noir(const int &pas, vector<float>
     {
         // Pour chaque élément à ajouter on fait une insertion dans tous les arbres du tableau.
         start = chrono::system_clock::now();
-        cout << i << endl;
         for (int j = 0; j < nombre_collection; j++)
         {
             // 1. On insere n élément dans l'arbre tab[i].
@@ -91,7 +104,6 @@ void Perfomance_Class::Perfomance_Arbre_Binaire(const int &pas, vector<float> &t
     {
         // Pour chaque élément à ajouter on fait une insertion dans tous les arbres du tableau.
         start = chrono::system_clock::now();
-        cout << i << endl;
         for (int j = 0; j < nombre_collection; j++)
         {
             // 1. On insere n élément dans l'arbre tab[i].
@@ -128,19 +140,19 @@ void Perfomance_Class::Creer_Fichier(string &nom_fichier, const vector<float> &t
     }
     ofstream myfile(nom_fichier);
 
-    int n_pour_temps = pas; 
+    int n_pour_temps = pas;
 
     if (myfile.is_open())
     {
         myfile << "# 'nb element' 'Temps' \n";
-        for (const auto& valeur_index : temps)
+        for (const auto &valeur_index : temps)
         {
             myfile << n_pour_temps;
             myfile << " ";
             myfile << valeur_index;
             myfile << "\n";
 
-            n_pour_temps+= pas;
+            n_pour_temps += pas;
         }
         myfile.close();
     }
@@ -148,5 +160,4 @@ void Perfomance_Class::Creer_Fichier(string &nom_fichier, const vector<float> &t
     {
         cout << "Erreur au niveau de l'écriture du fichier" << endl;
     }
-    cout << "Fin de l'écriture dans le fichier perforamcn" << endl;
 }

@@ -17,28 +17,24 @@ void menu_programme_principale();
 int main(void)
 {
   menu_programme_principale();
-  //Arbre_ARN a;
-  //a.test_arbre_RN();
   cout << "\033[2J\033[1;1H"; // Nettoie le terminale et remet le cursor à sa place de départ.
 
   return 0;
 }
 
-
-
-
 void menu_programme_principale()
 {
   // Menu pour choisir l'arbre que l'on voudra tester (à faire à la fin).
-
   char choix_utilisateur;
   bool boucle_programme = true;
   while (boucle_programme)
   {
+    cout << "\033[2J\033[1;1H"; // Nettoie le terminale et remet le cursor à sa place de départ.
+    cout << "============ MENU PRINCIPALE =================" << endl;
     cout << "Veuillez choisir quelle type de collection vous voulez tester : " << endl;
     cout << "- 1 - Arbre binaire de Recherche (TP6)" << endl;
     cout << "- 2 - Arbre Rouge et Noir" << endl;
-    cout << "- 3 - Autre" << endl;
+    cout << "- 3 - Les Deux en même temps pardis !" << endl;
     cout << "- 4 - Quitte le programme." << endl;
     cin >> choix_utilisateur;
     if (choix_utilisateur == '1')
@@ -55,9 +51,9 @@ void menu_programme_principale()
     }
     else if (choix_utilisateur == '3')
     {
-      // Autres
-      boucle_programme = false;
-      // ...
+      // Test les deux arbres.
+      Perfomance_Class perf_A(choix_utilisateur);
+      perf_A.Test_Perfomance_Collection();
     }
     else if (choix_utilisateur == '4')
     {
